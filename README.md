@@ -28,6 +28,7 @@ A modern, minimalist website for KAPI, a Penn State gymnast launching a book in 
 │   ├── layout.tsx           # Root layout with fonts and metadata
 │   └── page.tsx             # Main page component
 ├── components/
+│   ├── Header.tsx           # Bubble navigation header
 │   ├── HeroSection.tsx      # Hero with video background
 │   ├── SocialProofBanner.tsx # Scrolling metrics banner
 │   ├── AboutSection.tsx     # Personal story section
