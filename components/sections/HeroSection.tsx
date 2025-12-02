@@ -23,7 +23,7 @@ export default function HeroSection() {
         loop
         playsInline
       >
-        <source src="/videos/film.m4v" type="video/mp4" />
+        <source src="/videos/kapi-film.m4v" type="video/mp4" />
         {/* Fallback image if video doesn't load */}
         <div className="absolute inset-0 bg-gradient-to-br from-charcoal-900 to-charcoal-950" />
       </video>
@@ -38,12 +38,12 @@ export default function HeroSection() {
           <p className="mb-4 text-lg sm:text-xl text-gold-400 font-medium tracking-wide">
             Kacper Garnczarek
           </p>
-          
+
           {/* Main Title */}
           <h1 className="mb-8 text-4xl font-bold leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
             <span className="block text-white">Your journey starts here.</span>
           </h1>
-          
+
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="kapi-button">
