@@ -1,10 +1,10 @@
 'use client';
 
-import Header from '../components/Header';
-import HeroSection from '../components/HeroSection';
-import AboutSection from '../components/AboutSection';
-import MVPSection from '../components/MVPSection';
-import Footer from '../components/Footer';
+import Header from '../components/layout/Header';
+import HeroSection from '../components/sections/HeroSection';
+import AboutSection from '../components/sections/AboutSection';
+import MVPSection from '../components/sections/MVPSection';
+import Footer from '../components/layout/Footer';
 
 export default function Home() {
   return (
