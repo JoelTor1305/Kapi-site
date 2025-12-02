@@ -75,25 +75,42 @@
   }
   
   body {
-    @apply bg-white min-h-screen;
+    @apply bg-charcoal-950 text-white min-h-screen;
+    background-image: 
+      radial-gradient(circle at 20% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(0, 0, 0, 0.1) 0%, transparent 50%);
   }
   
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-playfair), serif;
+    @apply text-white;
   }
 }
 
 @layer components {
   .kapi-button {
-    @apply bg-yellow-400 text-black px-8 py-4 rounded-lg font-semibold text-lg hover:bg-yellow-300 transition-colors duration-300;
+    @apply bg-gold-500 text-charcoal-950 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gold-400 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-gold-500/25;
   }
   
   .kapi-button-outline {
-    @apply border-2 border-gray-900 text-gray-900 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-900 hover:text-white transition-colors duration-300;
+    @apply border-2 border-gold-500 text-gold-500 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gold-500 hover:text-charcoal-950 transition-all duration-300;
   }
   
   .kapi-card {
-    @apply bg-white rounded-lg shadow-sm border border-gray-100 hover:shadow-lg transition-shadow duration-300;
+    @apply bg-charcoal-900/50 backdrop-blur-sm rounded-lg shadow-lg border border-charcoal-800 hover:shadow-xl hover:shadow-gold-500/10 transition-all duration-300;
+  }
+  
+  .kapi-text-gold {
+    @apply text-gold-400;
+  }
+  
+  .kapi-bg-dark {
+    @apply bg-charcoal-950;
+  }
+  
+  .kapi-bg-card {
+    @apply bg-charcoal-900/30 backdrop-blur-sm border border-charcoal-800;
   }
 }
 

@@ -20,13 +20,13 @@ export default function SocialProofBanner() {
   }, []);
 
   return (
-    <section className="py-16 bg-gray-50 overflow-hidden">
+    <section className="py-16 bg-charcoal-900 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl font-bold text-white mb-4">
             Trusted by Thousands
           </h2>
-          <p className="text-gray-600 text-lg">
+          <p className="text-white/80 text-lg">
             Join the community of athletes and dreamers who believe in transformation
           </p>
         </div>
@@ -37,13 +37,13 @@ export default function SocialProofBanner() {
             {metrics.map((metric, index) => (
               <div
                 key={`first-${index}`}
-                className="flex-shrink-0 mx-8 flex flex-col items-center justify-center bg-white rounded-lg p-6 shadow-sm border border-gray-100 min-w-[200px]"
+                className="flex-shrink-0 mx-8 flex flex-col items-center justify-center kapi-card p-6 min-w-[200px]"
               >
-                <metric.icon className="h-8 w-8 text-yellow-400 mb-3" />
-                <div className="text-2xl font-bold text-gray-900 mb-1">
+                <metric.icon className="h-8 w-8 text-gold-400 mb-3" />
+                <div className="text-2xl font-bold text-white mb-1">
                   {metric.value}
                 </div>
-                <div className="text-sm text-gray-600 text-center">
+                <div className="text-sm text-white/70 text-center">
                   {metric.label}
                 </div>
               </div>
@@ -53,13 +53,13 @@ export default function SocialProofBanner() {
             {metrics.map((metric, index) => (
               <div
                 key={`second-${index}`}
-                className="flex-shrink-0 mx-8 flex flex-col items-center justify-center bg-white rounded-lg p-6 shadow-sm border border-gray-100 min-w-[200px]"
+                className="flex-shrink-0 mx-8 flex flex-col items-center justify-center kapi-card p-6 min-w-[200px]"
               >
-                <metric.icon className="h-8 w-8 text-yellow-400 mb-3" />
-                <div className="text-2xl font-bold text-gray-900 mb-1">
+                <metric.icon className="h-8 w-8 text-gold-400 mb-3" />
+                <div className="text-2xl font-bold text-white mb-1">
                   {metric.value}
                 </div>
-                <div className="text-sm text-gray-600 text-center">
+                <div className="text-sm text-white/70 text-center">
                   {metric.label}
                 </div>
               </div>

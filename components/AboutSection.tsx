@@ -1,10 +1,16 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
 export default function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
+  });
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -25,38 +31,97 @@ export default function AboutSection() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const calculateTimeLeft = () => {
+      const targetDate = new Date('April 20, 2026 00:00:00').getTime();
+      const now = new Date().getTime();
+      const difference = targetDate - now;
+
+      if (difference > 0) {
+        setTimeLeft({
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((difference % (1000 * 60)) / 1000)
+        });
+      } else {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      }
+    };
+
+    calculateTimeLeft();
+    const interval = setInterval(calculateTimeLeft, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <section ref={sectionRef} className="py-20 bg-white pt-24">
+    <section ref={sectionRef} className="py-20 bg-charcoal-950 pt-24">
       <div className="max-w-7xl mx-auto px-4">
+        {/* Title - Centered above everything */}
+        <div className="text-center mb-12">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4">
+            Today's Pleasure Tomorrow's Success
+          </h1>
+        </div>
+        
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Content */}
           <div className="space-y-8">
             <div>
-              <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                My Journey to Inspiration
+              {/* Countdown Timer */}
+              <div className="mb-8 p-6 bg-gradient-to-br from-gold-500/20 to-gold-400/10 rounded-2xl border border-gold-500/30">
+                <div className="flex justify-center gap-4">
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-white mb-1">{timeLeft.days}</div>
+                    <div className="text-xs text-white/70 uppercase">Days</div>
+                  </div>
+                  <div className="text-gold-400 text-2xl font-bold">:</div>
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-white mb-1">{timeLeft.hours}</div>
+                    <div className="text-xs text-white/70 uppercase">Hours</div>
+                  </div>
+                  <div className="text-gold-400 text-2xl font-bold">:</div>
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-white mb-1">{timeLeft.minutes}</div>
+                    <div className="text-xs text-white/70 uppercase">Minutes</div>
+                  </div>
+                  <div className="text-gold-400 text-2xl font-bold">:</div>
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-white mb-1">{timeLeft.seconds}</div>
+                    <div className="text-xs text-white/70 uppercase">Seconds</div>
+                  </div>
+                </div>
+                <p className="text-center text-white/60 text-sm mt-4">
+                  Until April 20th, 2026
+                </p>
+              </div>
+              
+              <h2 className="text-4xl font-bold text-white mb-6">
+                Let's build the future you've always imagined
               </h2>
-              <p className="text-lg text-gray-600 leading-relaxed mb-6">
-                As a Penn State gymnast, I've learned that true strength comes not just from physical ability, 
-                but from the mental resilience to overcome any obstacle. My journey from a young athlete with 
-                big dreams to a mentor helping others achieve their goals has taught me invaluable lessons 
-                about perseverance, dedication, and the power of belief.
+              <p className="text-lg text-white/80 leading-relaxed mb-6">
+                I'm a Polish National Team gymnast and captain of the Penn State Men's Gymnastics Team. 
+                I've trained since I was four, combining discipline, focus, and positive energy. 
+                European Championships and World Cup finalist, Multiple Polish National Champion. 
+                My goal is to inspire others to chase their dreams with passion and purpose.
               </p>
-              <p className="text-lg text-gray-600 leading-relaxed mb-6">
-                Through countless hours of training, competition, and personal growth, I discovered that 
-                the greatest victories aren't always the ones that earn medals—they're the moments when 
-                you push past your limits and inspire others to do the same.
+              <p className="text-lg text-white/80 leading-relaxed mb-6">
+                Through years of dedication to gymnastics, I've learned that success isn't just about 
+                physical ability—it's about mental strength, discipline, and the courage to pursue 
+                your dreams relentlessly.
               </p>
-              <p className="text-lg text-gray-600 leading-relaxed">
-                This book is my way of sharing those lessons with you, whether you're an athlete, 
-                a dreamer, or someone simply looking to unlock your potential and transform your life.
+              <p className="text-lg text-white/80 leading-relaxed">
+                Whether you're an athlete, entrepreneur, or someone with big dreams, I'm here to 
+                help you unlock your potential and achieve the success you've always imagined.
               </p>
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-yellow-400 text-black px-8 py-4 rounded-lg font-semibold text-lg hover:bg-yellow-300 transition-colors duration-300">
+              <button className="kapi-button">
                 Read My Story
               </button>
-              <button className="border-2 border-gray-900 text-gray-900 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-900 hover:text-white transition-colors duration-300">
+              <button className="kapi-button-outline">
                 Watch My Journey
               </button>
             </div>
@@ -76,14 +141,14 @@ export default function AboutSection() {
             </div>
             
             {/* Floating stats */}
-            <div className="absolute -bottom-6 -left-6 bg-white rounded-lg shadow-lg p-6 border border-gray-100">
-              <div className="text-2xl font-bold text-gray-900">15+</div>
-              <div className="text-sm text-gray-600">Years Training</div>
+            <div className="absolute -bottom-6 -left-6 kapi-card p-6">
+              <div className="text-2xl font-bold text-white">15+</div>
+              <div className="text-sm text-white/70">Years Training</div>
             </div>
             
-            <div className="absolute -top-6 -right-6 bg-yellow-400 rounded-lg shadow-lg p-6">
-              <div className="text-2xl font-bold text-black">3x</div>
-              <div className="text-sm text-black">All-American</div>
+            <div className="absolute -top-6 -right-6 bg-gold-500 rounded-lg shadow-lg p-6">
+              <div className="text-2xl font-bold text-charcoal-950">3x</div>
+              <div className="text-sm text-charcoal-950">All-American</div>
             </div>
           </div>
         </div>
