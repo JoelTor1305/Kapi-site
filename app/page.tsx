@@ -2,6 +2,7 @@
 
 import Header from '../components/layout/Header';
 import HeroSection from '../components/sections/HeroSection';
+import BookSection from '../components/sections/BookSection';
 import AboutSection from '../components/sections/AboutSection';
 import MVPSection from '../components/sections/MVPSection';
 import Footer from '../components/layout/Footer';
@@ -12,6 +13,9 @@ export default function Home() {
       <Header />
       <div id="home">
         <HeroSection />
+      </div>
+      <div id="book">
+        <BookSection />
       </div>
       <div id="about">
         <AboutSection />
