@@ -3,44 +3,52 @@ import { Resend } from 'resend';
 import fs from 'fs';
 import path from 'path';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(req: NextRequest) {
-    try {
-        const { email, paymentIntentId } = await req.json();
+  try {
+    // Initialize Resend client inside the handler to avoid build-time errors
+    if (!process.env.RESEND_API_KEY) {
+      return NextResponse.json(
+        { error: 'Email service not configured' },
+        { status: 500 }
+      );
+    }
 
-        if (!email) {
-            return NextResponse.json(
-                { error: 'Email is required' },
-                { status: 400 }
-            );
-        }
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
-        // Read the PDF file
-        const pdfPath = path.join(process.cwd(), 'public', 'pdfs', 'book.pdf');
+    const { email, paymentIntentId } = await req.json();
 
-        let pdfBuffer: Buffer | undefined;
-        let attachments: any[] = [];
+    if (!email) {
+      return NextResponse.json(
+        { error: 'Email is required' },
+        { status: 400 }
+      );
+    }
 
-        // Check if PDF exists, if not, send email without attachment
-        if (fs.existsSync(pdfPath)) {
-            pdfBuffer = fs.readFileSync(pdfPath);
-            attachments = [
-                {
-                    filename: 'Todays-Pleasure-or-Tomorrows-Success.pdf',
-                    content: pdfBuffer,
-                },
-            ];
-        } else {
-            console.warn('PDF file not found at:', pdfPath);
-        }
+    // Read the PDF file
+    const pdfPath = path.join(process.cwd(), 'public', 'pdfs', 'book.pdf');
 
-        // Send email with Resend
-        const data = await resend.emails.send({
-            from: 'Kapi <onboarding@resend.dev>', // Update this with your verified domain
-            to: [email],
-            subject: 'Your Book Purchase - Today\'s Pleasure or Tomorrow\'s Success',
-            html: `
+    let pdfBuffer: Buffer | undefined;
+    let attachments: any[] = [];
+
+    // Check if PDF exists, if not, send email without attachment
+    if (fs.existsSync(pdfPath)) {
+      pdfBuffer = fs.readFileSync(pdfPath);
+      attachments = [
+        {
+          filename: 'Todays-Pleasure-or-Tomorrows-Success.pdf',
+          content: pdfBuffer,
+        },
+      ];
+    } else {
+      console.warn('PDF file not found at:', pdfPath);
+    }
+
+    // Send email with Resend
+    const data = await resend.emails.send({
+      from: 'Kapi <onboarding@resend.dev>', // Update this with your verified domain
+      to: [email],
+      subject: 'Your Book Purchase - Today\'s Pleasure or Tomorrow\'s Success',
+      html: `
         <!DOCTYPE html>
         <html>
           <head>
@@ -110,17 +118,17 @@ export async function POST(req: NextRequest) {
           </body>
         </html>
       `,
-            attachments,
-        });
+      attachments,
+    });
 
-        console.log('Email sent successfully:', data);
+    console.log('Email sent successfully:', data);
 
-        return NextResponse.json({ success: true, data });
-    } catch (error: any) {
-        console.error('Error sending email:', error);
-        return NextResponse.json(
-            { error: error.message },
-            { status: 500 }
-        );
-    }
+    return NextResponse.json({ success: true, data });
+  } catch (error: any) {
+    console.error('Error sending email:', error);
+    return NextResponse.json(
+      { error: error.message },
+      { status: 500 }
+    );
+  }
 }
